@@ -1,17 +1,37 @@
-import { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { fetchTimeAction } from '../../store/api-actions';
+import { getDelay, getUnixTime } from '../../store/app-process/selectors';
 
 function Table() : JSX.Element {
   const dispatch = useAppDispatch();
 
+  const unixTime = useAppSelector(getUnixTime);
+  const delay = useAppSelector(getDelay);
+
+  let timer = unixTime * 1000 + delay;
+
+  const [time, setTime] = useState(new Date(timer).toLocaleTimeString());
+  
   useEffect(() => {
     dispatch(fetchTimeAction());
-  }, [dispatch])
-  
+  }, [dispatch])  
+
+
+  useEffect(() => {
+    if(unixTime === 0){
+      return;
+    }
+
+    setInterval(() => {
+      timer+= 1000;
+      setTime(new Date(timer).toLocaleTimeString());
+    }, 1000);    
+  }, [unixTime]); 
+
   return (
-    <div>
-      <h1>Главный компонент</h1>
+    <div className="table">
+      <h2>Время: {time}</h2>
     </div>
   )
 }
