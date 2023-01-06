@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-const URL_API = 'http://worldtimeapi.org/api/timezone/Asia/Tomsk';
+const URL_API = 'https://worldtimeapi.org/api/timezone/Asia/Tomsk';
 const REQUEST_TIMEOUT = 5000;
 
 export const createAPI = () : AxiosInstance => {
