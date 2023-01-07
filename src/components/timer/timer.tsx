@@ -38,7 +38,7 @@ function Timer({changeUserHandler} : TimerProps) : JSX.Element {
       }
 
       if(timer <= 0){
-        timer = TIME_TO_MOVE * 5000;
+        timer = TIME_TO_MOVE * 60000;
         changeUserHandler();
       }
 
