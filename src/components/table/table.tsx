@@ -1,37 +1,29 @@
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useEffect } from 'react';
+import { USERS } from '../../fish';
+import { useAppDispatch, useAppSelector, } from '../../hooks/hooks';
 import { fetchTimeAction } from '../../store/api-actions';
-import { getDelay, getUnixTime } from '../../store/app-process/selectors';
+import { nextStep, setUsersCount } from '../../store/app-data/app-data';
+import { getMove } from '../../store/app-data/selectors';
+import Timer from '../timer/timer';
 
 function Table() : JSX.Element {
   const dispatch = useAppDispatch();
 
-  const unixTime = useAppSelector(getUnixTime);
-  const delay = useAppSelector(getDelay);
+  const currentUser = useAppSelector(getMove);
 
-  let timer = unixTime * 1000 + delay;
-
-  const [time, setTime] = useState(new Date(timer).toLocaleTimeString());
-  
   useEffect(() => {
     dispatch(fetchTimeAction());
+    dispatch(setUsersCount(USERS.length));
   }, [dispatch])  
-
-
-  useEffect(() => {
-    if(unixTime === 0){
-      return;
-    }
-
-    setInterval(() => {
-      timer+= 1000;
-      setTime(new Date(timer).toLocaleTimeString());
-    }, 1000);    
-  }, [unixTime]); 
+  
+  const handleChangeUser = () => {
+    dispatch(nextStep());
+  }
 
   return (
     <div className="table">
-      <h2>Время: {time}</h2>
+      <Timer changeUserHandler={handleChangeUser} /><br/>
+      <h2>Ходит: {currentUser}</h2>
     </div>
   )
 }

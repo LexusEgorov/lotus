@@ -1,6 +1,6 @@
 import { NameSpace } from '../../const';
 import { State } from '../../types';
 
-export const getUnixTime = (state: State) : number => state[NameSpace.App].time;
+export const getIsError = (state: State) : boolean => state[NameSpace.App].isError;
 
-export const getDelay = (state: State) : number => state[NameSpace.App].delay;
+export const getIsLoading = (state: State) : boolean => state[NameSpace.App].isTimeLoading;

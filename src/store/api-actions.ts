@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { AppDispatch, State, TimeResponse } from '../types';
+import { AppDispatch, State, TimeData, TimeResponse } from '../types';
 
-export const fetchTimeAction = createAsyncThunk<any, undefined, {
+export const fetchTimeAction = createAsyncThunk<TimeData, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance,
@@ -17,6 +17,7 @@ export const fetchTimeAction = createAsyncThunk<any, undefined, {
       unixtime: response.data.unixtime,
       delay: (endTime - startTime) / 2,
     }
+
     return data;
   }
 ) 
