@@ -10,7 +10,6 @@ export type AppData = {
   delay: number,
   userMove: number,
   usersCount: number,
-  countRequests: number,
 }
 
 export type AppDispatch = typeof store.dispatch;

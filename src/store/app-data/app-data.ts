@@ -8,7 +8,6 @@ const initialState : AppData = {
   delay: 0,
   userMove: 0,
   usersCount: 0,
-  countRequests: 0,
 }
 
 export const appData = createSlice({
@@ -29,12 +28,7 @@ export const appData = createSlice({
     builder
       .addCase(fetchTimeAction.fulfilled, (state, action) => {
         state.time = action.payload.unixtime;
-        state.delay += action.payload.delay;
-        state.countRequests++;
-
-        if(state.countRequests === 10){
-          state.delay = Math.floor(state.delay / 10);
-        }
+        state.delay = action.payload.delay;
       })
   },
 });
