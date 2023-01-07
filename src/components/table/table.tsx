@@ -12,7 +12,9 @@ function Table() : JSX.Element {
   const currentUser = useAppSelector(getMove);
 
   useEffect(() => {
-    dispatch(fetchTimeAction());
+    for(let i = 1; i <= 10; i++){
+      dispatch(fetchTimeAction());
+    }
     dispatch(setUsersCount(USERS.length));
   }, [dispatch])  
   
