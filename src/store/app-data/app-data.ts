@@ -18,7 +18,9 @@ export const appData = createSlice({
       state.userMove = state.userMove >= state.usersCount ? 1 : state.userMove + 1;
     },
     setUserMove : (state, action) => {
-      state.userMove = action.payload;
+      const move = action.payload;
+      
+      state.userMove = move > 0 && move < state.usersCount ? move : 1;
     },
     setUsersCount : (state, action) => {
       state.usersCount = action.payload;

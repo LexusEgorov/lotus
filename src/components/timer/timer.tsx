@@ -2,18 +2,16 @@ import { useEffect, useState } from 'react';
 import { TIME_TO_MOVE } from '../../const';
 import { USERS } from '../../fish';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { setUserMove } from '../../store/app-data/app-data';
+import { nextStep, setUserMove } from '../../store/app-data/app-data';
 import { getUnixTime, getDelay } from '../../store/app-data/selectors';
 import { getTimeLeft, getUserMove } from '../../utils';
 
 const MS_TO_SECONDS = 1000;
 const MS_TO_HOURS = 3600000; 
 
-type TimerProps = {
-  changeUserHandler: any,
-}
+let interval : NodeJS.Timer;
 
-function Timer({changeUserHandler} : TimerProps) : JSX.Element {
+function Timer() : JSX.Element {
   const dispatch = useAppDispatch();
 
   const unixTime = useAppSelector(getUnixTime);
@@ -22,12 +20,17 @@ function Timer({changeUserHandler} : TimerProps) : JSX.Element {
   let timer = MS_TO_HOURS - (unixTime * 1000 + delay) % MS_TO_HOURS;
 
   const [time, setTime] = useState(new Date(timer).toLocaleTimeString().substring(3));
+  
   useEffect(() => {
     if(unixTime === 0){
       return;
     }
 
-    setInterval(() => {
+    if(interval){
+      clearInterval(interval);
+    }
+
+    interval = setInterval(() => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       timer = timer - MS_TO_SECONDS;
       const currentTime = new Date(timer);
@@ -39,7 +42,7 @@ function Timer({changeUserHandler} : TimerProps) : JSX.Element {
 
       if(timer <= 0){
         timer = TIME_TO_MOVE * 60000;
-        changeUserHandler();
+        dispatch(nextStep());
       }
 
       setTime(currentTime.toLocaleTimeString().substring(3));
@@ -48,7 +51,9 @@ function Timer({changeUserHandler} : TimerProps) : JSX.Element {
   }, [unixTime]);
   
   return(
-    <h2>Время: {time}</h2>
+    <>
+      {time}
+    </>
   );
 }
 

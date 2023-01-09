@@ -1,12 +1,12 @@
 import { Provider } from 'react-redux/es/exports';
-import Table from './components/table/table';
+import Board from './components/board/board';
 import { store } from './store/store';
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Table />
+        <Board />
       </div>
     </Provider>
   );

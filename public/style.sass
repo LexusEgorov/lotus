@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap')
+
+$main-text-color: #5a5a5a
+$accent-text-color: #82acba
+
+$main-red-color: #d54542
+$secondary-red-color: #d8708b
+$main-pink-bg-color: #f2dede
+$secondary-pink-bg-color: #f9f2f4
+
+$price-first-color: #5e96c5
+$price-total-color: #598b5b
+$decrement-color: #b96868
+
+$secondary-table-color: #f8f4f4 
+
+$table-data-width: 200px
+  
+body
+  padding: 0 10px
+  font: 18px Roboto
+  box-sizing: border-box
+
+.App
+  max-width: 1920px
+  margin: 0 auto
+
+.board
+  width: 100%
+  display: flex 
+  flex-direction: column
+  justify-content: start
+  align-items: flex-start
+
+  &-header
+    width: 100%
+    border-bottom: 1px solid $main-text-color
+    font-size: 24px
+    font-weight: 300
+    color: $main-red-color
+  
+  .message
+    color: $secondary-red-color
+    background-color: $secondary-pink-bg-color
+    padding: 5px
+    border-radius: 5px
+    margin-bottom: 20px
+
+.step-table
+  width: 1650px
+  margin-bottom: 30px
+
+.table-header
+  margin: 0
+  width: 100%
+  color: $accent-text-color
+  text-transform: uppercase
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+
+  p
+    margin: 0
+
+    &:first-child
+      margin-bottom: 10px
+
+.underline
+  border-bottom: 2px solid $main-text-color
+    
+.parameter
+  display: flex
+  justify-content: center
+   
+.timer-wrapper
+  background-color: $main-pink-bg-color
+  border-radius: 5px
+  width: 100%
+  padding: 20px 0
+  color: $main-red-color
+  display: flex
+  align-items: center
+  justify-content: center
+
+.price
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+
+.price-first
+  color: $price-first-color
+
+.price-total
+  color: $price-total-color
+
+.decrement
+  color: $decrement-color
+
+.colored
+  margin: 0
+  background-color: #f4f4f4
