@@ -7,6 +7,7 @@ export const getUserMove = (currentTime: number, timeToMove: number, usersCount:
     userMove = userMove + 1 > usersCount ? 1 : userMove + 1;
   }
 
+  console.log(`minutes: ${currentTime}, moves: ${movesCount}, user: ${userMove}`)
   return userMove;
 };
 

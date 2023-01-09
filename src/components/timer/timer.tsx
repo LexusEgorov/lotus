@@ -3,7 +3,7 @@ import { TIME_TO_MOVE } from '../../const';
 import { USERS } from '../../fish';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { nextStep, setUserMove } from '../../store/app-data/app-data';
-import { getUnixTime, getDelay, getMove } from '../../store/app-data/selectors';
+import { getUnixTime, getDelay } from '../../store/app-data/selectors';
 import { getTimeLeft, getUserMove } from '../../utils';
 
 const MS_TO_SECONDS = 1000;
@@ -16,9 +16,8 @@ function Timer() : JSX.Element {
 
   const unixTime = useAppSelector(getUnixTime);
   const delay = useAppSelector(getDelay);
-  const userMove = useAppSelector(getMove);
 
-  let timer = MS_TO_HOURS - (unixTime * 1000 + delay) % MS_TO_HOURS;
+  let timer = (unixTime * 1000 + delay) % MS_TO_HOURS;
 
   const [time, setTime] = useState(new Date(timer).toLocaleTimeString().substring(3));
   const [isReady, setIsReady] = useState(false);
