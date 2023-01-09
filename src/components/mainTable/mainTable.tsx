@@ -10,9 +10,13 @@ function MainTable() : JSX.Element {
 
   if(currentUser === 0){
     return(
-      <div className="visually-hidden">
-        <Timer />
-      </div>
+      <>
+        <div className="loading">
+          <p>Загрузка...</p>
+          <p>Если на часах 59 минут, подождите до 00</p>
+        </div>
+        <Timer/>
+      </>
     );
   }
 

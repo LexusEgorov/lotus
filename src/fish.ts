@@ -107,6 +107,33 @@ export const USERS = [
       total: '2,475,000'
     }
   },
+  {
+    id: 5, 
+    name: 'ООО \'ПО УЗТО\'',
+    params: [
+      {
+        id: 1,
+        value: '',
+      },
+      {
+        id: 2,
+        value: 80,
+      },
+      {
+        id: 3,
+        value: 24,
+      },
+      {
+        id: 4,
+        value: 30,
+      },
+    ],
+    price:{
+      first: '2,500,000',
+      decrement: '25,000',
+      total: '2,475,000'
+    }
+  },
 ];
 
 export const PARAMS = [
