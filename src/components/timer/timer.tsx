@@ -37,7 +37,7 @@ function Timer() : JSX.Element {
       
       if(timer > TIME_TO_MOVE * 60000){
         timer = getTimeLeft(timer);
-        dispatch(setUserMove(getUserMove(60 - currentTime.getMinutes(), TIME_TO_MOVE, USERS.length)));
+        dispatch(setUserMove(getUserMove(currentTime.getMinutes(), TIME_TO_MOVE, USERS.length)));
       }
 
       if(timer <= 0){
