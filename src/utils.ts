@@ -1,24 +1,19 @@
 export const getUserMove = (currentTime: number, timeToMove: number, usersCount: number) : number => {
-  const round = timeToMove * usersCount;
-  let time = currentTime;
-  let counter = 0;
+  let userMove = 1;
 
-  while(round < time){
-    time = time - round;
+  const movesCount = Math.floor(currentTime / timeToMove);
+
+  for(let i = 0; i < movesCount; i++){
+    userMove = userMove + 1 > usersCount ? 1 : userMove + 1;
   }
 
-  for(let i = time; i > 0; i = i - timeToMove){
-    counter++;
-  }
-
-  return counter;
-}
+  return userMove;
+};
 
 export const getTimeLeft = (currentTime: number) : number => {
   const currentDate = new Date(currentTime);
 
   const timeLeft = currentDate.getSeconds() * 1000;
-
   if(currentDate.getMinutes() % 2 === 0){
     return timeLeft;
   }
@@ -27,7 +22,7 @@ export const getTimeLeft = (currentTime: number) : number => {
 }
 
 export const generator = () => {
-  let counter = 31;
+  let counter = 1;
 
   return () => counter++;
 }
