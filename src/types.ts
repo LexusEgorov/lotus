@@ -48,6 +48,13 @@ export type Users = User[];
 export type TimeResponse = {
   timeLeft: number,
   step: number,
+  serverTime: number,
+}
+
+export type TimeData = {
+  timeLeft: number,
+  step: number,
+  delay: number,
 }
 
 export type DataResponse = {

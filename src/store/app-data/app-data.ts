@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
+import { NameSpace, TIME_TO_MOVE } from '../../const';
 import { AppData } from '../../types';
 import { fetchDataAction, fetchTimeAction } from '../api-actions';
 
@@ -20,13 +20,30 @@ export const appData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchTimeAction.fulfilled, (state, action) => {
-        const {timeLeft, step} = action.payload;
+        const {timeLeft, step, delay} = action.payload;
 
-        state.currentUser = step;
-        state.timeLeft = timeLeft;
+        const fixedTime = timeLeft - delay;
+
+        if(fixedTime > 0){
+          state.currentUser = step;
+          state.timeLeft = fixedTime;
+        } else {
+          state.timeLeft = (60000 * TIME_TO_MOVE) + fixedTime;
+          
+          if(state.usersCount === 0){
+            state.currentUser = step + 1;
+          } else {
+            state.currentUser = state.currentUser >= state.usersCount ? 1 : state.currentUser + 1;
+          }
+        }
       })
       .addCase(fetchDataAction.fulfilled, (state, action) => {
-        state.usersCount = action.payload.users.length;
+        const length = action.payload.users.length;
+        state.usersCount = length;
+
+        if(state.currentUser > state.usersCount){
+          state.currentUser = 1; 
+        }
       })
   },
 });
