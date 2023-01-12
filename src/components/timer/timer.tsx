@@ -6,6 +6,7 @@ import { nextStep } from '../../store/app-data/app-data';
 import { getTimeLeft } from '../../store/app-data/selectors';
 
 const MS_TO_SECONDS = 1000;
+const REFRESH_TIME = 300000;
 
 let interval : NodeJS.Timer;
 
@@ -17,7 +18,7 @@ function Timer() : JSX.Element {
   let timer = timeLeft;
 
   useEffect(() => {
-    setTimeout(() => dispatch(fetchTimeAction()), MS_TO_SECONDS * 600);
+    setTimeout(() => dispatch(fetchTimeAction()), REFRESH_TIME);
     if(timeLeft === 0){
       return;
     }
@@ -34,10 +35,9 @@ function Timer() : JSX.Element {
       if(timer <= 0){
         timer = TIME_TO_MOVE * 60000;
         dispatch(nextStep());
-      }
-
-      setTime(currentTime.toLocaleTimeString().substring(3));
-      
+      } else {
+        setTime(currentTime.toLocaleTimeString().substring(3));
+      }      
     }, 1000);
   }, [timeLeft]);
   
