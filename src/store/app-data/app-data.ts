@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { AppData } from '../../types';
-import { fetchTimeAction } from '../api-actions';
+import { fetchDataAction, fetchTimeAction } from '../api-actions';
 
 const initialState : AppData = {
-  time: 0,
-  delay: 0,
-  userMove: 0,
+  currentUser: 0,
+  timeLeft: 0,
   usersCount: 0,
 }
 
@@ -15,24 +14,21 @@ export const appData = createSlice({
   initialState,
   reducers : {
     nextStep : (state) => {
-      state.userMove = state.userMove >= state.usersCount ? 1 : state.userMove + 1;
+      state.currentUser = state.currentUser >= state.usersCount ? 1 : state.currentUser + 1;
     },
-    setUserMove : (state, action) => {
-      const move = action.payload;
-      
-      state.userMove = move > 0 && move < state.usersCount ? move : 1;
-    },
-    setUsersCount : (state, action) => {
-      state.usersCount = action.payload;
-    }
   },
   extraReducers(builder) {
     builder
       .addCase(fetchTimeAction.fulfilled, (state, action) => {
-        state.time = action.payload.unixtime;
-        state.delay = action.payload.delay;
+        const {timeLeft, step} = action.payload;
+
+        state.currentUser = step;
+        state.timeLeft = timeLeft;
+      })
+      .addCase(fetchDataAction.fulfilled, (state, action) => {
+        state.usersCount = action.payload.users.length;
       })
   },
 });
 
-export const {setUserMove, nextStep, setUsersCount} = appData.actions;
+export const {nextStep} = appData.actions;

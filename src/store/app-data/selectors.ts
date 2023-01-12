@@ -1,8 +1,6 @@
 import { NameSpace } from '../../const';
 import { State } from '../../types';
 
-export const getUnixTime = (state: State) : number => state[NameSpace.Data].time;
+export const getStep = (state: State) : number => state[NameSpace.Data].currentUser;
 
-export const getDelay = (state: State) : number => state[NameSpace.Data].delay;
-
-export const getMove = (state: State) : number => state[NameSpace.Data].userMove;
+export const getTimeLeft = (state: State) : number => state[NameSpace.Data].timeLeft;

@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import { USERS } from '../../fish';
 import { useAppDispatch } from '../../hooks/hooks';
-import { fetchTimeAction } from '../../store/api-actions';
-import { setUsersCount } from '../../store/app-data/app-data';
+import { fetchTimeAction, fetchDataAction } from '../../store/api-actions';
 import MainTable from '../mainTable/mainTable';
 
 function Board() : JSX.Element {
@@ -10,7 +8,7 @@ function Board() : JSX.Element {
 
   useEffect(() => {
     dispatch(fetchTimeAction());
-    dispatch(setUsersCount(USERS.length));
+    dispatch(fetchDataAction());
   }, [dispatch])  
 
   return (

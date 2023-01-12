@@ -1,25 +1,56 @@
 import { store } from './store/store';
 
 export type AppProcess = {
+  isDataLoading: boolean,
   isTimeLoading: boolean,
+  isLoading: boolean,
   isError: boolean,
 }
 
 export type AppData = {
-  time: number,
-  delay: number,
-  userMove: number,
+  currentUser: number,
+  timeLeft: number,
   usersCount: number,
+}
+
+export type TradeData = {
+  users: Users,
+  params: Params,
 }
 
 export type AppDispatch = typeof store.dispatch;
 export type State = ReturnType<typeof store.getState>;
 
-export type TimeResponse = {
-  unixtime: string,
+export type UserParam = {
+  id: number,
+  value: string,
 }
 
-export type TimeData = {
-  unixtime : number,
-  delay : number
+export type User = {
+  id: number,
+  name: string,
+  params: UserParam[],
+  price: {
+    first: string,
+    decrement: string,
+    total: string,
+  }
+}
+
+export type Param = {
+  id: number,
+  parameter: string,
+}
+
+export type Params = Param[];
+export type Users = User[];
+
+export type TimeResponse = {
+  timeLeft: number,
+  step: number,
+}
+
+export type DataResponse = {
+  users: Users,
+  params: Params,
 }

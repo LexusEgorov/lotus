@@ -1,19 +1,22 @@
 import { Fragment } from 'react';
-import { PARAMS, USERS } from '../../fish';
 import { useAppSelector } from '../../hooks/hooks';
-import { getMove } from '../../store/app-data/selectors';
+import { getStep } from '../../store/app-data/selectors';
+import { getIsLoading } from '../../store/app-process/selectors';
+import { getParams, getUsers } from '../../store/trade-data/selectors';
 import { generate } from '../../utils';
 import Timer from '../timer/timer';
 
 function MainTable() : JSX.Element {
-  const currentUser = useAppSelector(getMove);
+  const currentUser = useAppSelector(getStep);
+  const isLoading = useAppSelector(getIsLoading);
+  const users = useAppSelector(getUsers);
+  const params = useAppSelector(getParams);
 
-  if(currentUser === 0){
+  if(isLoading){
     return(
       <>
         <div className="loading">
           <p>Загрузка...</p>
-          <p>Если на часах 59 минут, подождите до 00</p>
         </div>
         <Timer/>
       </>
@@ -25,8 +28,8 @@ function MainTable() : JSX.Element {
       className='main-table'
       style={{
         display: 'grid',
-        gridTemplateColumns: `550px repeat(${USERS.length}, 300px)`, 
-        gridTemplateRows: `auto 30px repeat(${PARAMS.length + 1}, auto)`
+        gridTemplateColumns: `550px repeat(${users.length}, 300px)`, 
+        gridTemplateRows: `auto 30px repeat(${params.length + 1}, auto)`
       }}
     >
       <p
@@ -57,7 +60,7 @@ function MainTable() : JSX.Element {
         Параметры и требования
       </p>
       {
-        USERS.map((user) => {
+        users.map((user) => {
           return (
             <Fragment key={user.id}>
               <div
@@ -100,9 +103,9 @@ function MainTable() : JSX.Element {
         })
       }
       {
-        PARAMS.map((parameter) => 
+        params.map((parameter) => 
           <p
-            key={parameter.id + USERS.length}
+            key={parameter.id + users.length}
             className={parameter.id % 2 === 0 ? '' : 'colored'}
             style={{
               gridColumn: 1,

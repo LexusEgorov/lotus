@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { AppDispatch, State, TimeData, TimeResponse } from '../types';
+import { APIRoute } from '../const';
+import { AppDispatch, DataResponse, State, TimeResponse } from '../types';
 
-export const fetchTimeAction = createAsyncThunk<TimeData, undefined, {
+export const fetchTimeAction = createAsyncThunk<TimeResponse, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance,
@@ -10,14 +11,21 @@ export const fetchTimeAction = createAsyncThunk<TimeData, undefined, {
   'time/get',
   async (_arg, {extra: api}) => {
     const startTime = performance.now();
-    const response : AxiosResponse = await api.get<TimeResponse>('');
+    const { data } : AxiosResponse = await api.get<TimeResponse>(APIRoute.Time);
     const endTime = performance.now();
+    //ntp
+    return data;
+  }
+) 
 
-    const data = {
-      unixtime: response.data.unixtime,
-      delay: (endTime - startTime) / 2,
-    }
-
+export const fetchDataAction = createAsyncThunk<DataResponse, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance,
+}>(
+  'data/get',
+  async (_arg, {extra: api}) => {
+    const { data } : AxiosResponse = await api.get<DataResponse>(APIRoute.Data);
     return data;
   }
 ) 
